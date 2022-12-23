@@ -40,6 +40,9 @@ dependencies = [
     "pathspec",
     "python-dateutil",
     "securesystemslib[crypto]>=0.18.0",
+    "urllib3",
+    "docker",
+    "podman",
 ]
 dynamic = ["version"]
 

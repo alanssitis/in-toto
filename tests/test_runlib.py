@@ -33,8 +33,7 @@ import in_toto.exceptions
 from in_toto.models.metadata import Metablock
 from in_toto.exceptions import SignatureVerificationError
 from in_toto.runlib import (in_toto_run, in_toto_record_start,
-    in_toto_record_stop, record_artifacts_as_dict, _apply_exclude_patterns,
-    _hash_artifact)
+    in_toto_record_stop, record_artifacts_as_dict)
 from securesystemslib.interface import (
     generate_and_write_unencrypted_rsa_keypair,
     import_rsa_privatekey_from_file,
@@ -46,52 +45,6 @@ import securesystemslib.exceptions
 
 from tests.common import TmpDirMixin
 from pathlib import Path
-
-
-class Test_ApplyExcludePatterns(unittest.TestCase):
-  """Test _apply_exclude_patterns(names, exclude_patterns) """
-
-  def test_apply_exclude_explict(self):
-    names = ["foo", "bar", "baz"]
-    patterns = ["foo", "bar"]
-    expected = ["baz"]
-    result = _apply_exclude_patterns(names, patterns)
-    self.assertListEqual(sorted(result), sorted(expected))
-
-  def test_apply_exclude_all(self):
-    names = ["foo", "bar", "baz"]
-    patterns = ["*"]
-    expected = []
-    result = _apply_exclude_patterns(names, patterns)
-    self.assertListEqual(sorted(result), sorted(expected))
-
-  def test_apply_exclude_multiple_star(self):
-    names = ["foo", "bar", "baz"]
-    patterns = ["*a*"]
-    expected = ["foo"]
-    result = _apply_exclude_patterns(names, patterns)
-    self.assertListEqual(result, expected)
-
-  def test_apply_exclude_question_mark(self):
-    names = ["foo", "bazfoo", "barfoo"]
-    patterns = ["ba?foo"]
-    expected = ["foo"]
-    result = _apply_exclude_patterns(names, patterns)
-    self.assertListEqual(result, expected)
-
-  def test_apply_exclude_seq(self):
-    names = ["baxfoo", "bazfoo", "barfoo"]
-    patterns = ["ba[xz]foo"]
-    expected = ["barfoo"]
-    result = _apply_exclude_patterns(names, patterns)
-    self.assertListEqual(result, expected)
-
-  def test_apply_exclude_neg_seq(self):
-    names = ["baxfoo", "bazfoo", "barfoo"]
-    patterns = ["ba[!r]foo"]
-    expected = ["barfoo"]
-    result = _apply_exclude_patterns(names, patterns)
-    self.assertListEqual(result, expected)
 
 
 class TestRecordArtifactsAsDict(unittest.TestCase, TmpDirMixin):
@@ -492,10 +445,6 @@ class TestRecordArtifactsAsDict(unittest.TestCase, TmpDirMixin):
       in_toto.settings.ARTIFACT_EXCLUDE_PATTERNS = setting
       with self.assertRaises(securesystemslib.exceptions.FormatError):
         record_artifacts_as_dict(["."])
-
-  def test_hash_artifact_passing_algorithm(self):
-    """Test _hash_artifact passing hash algorithm. """
-    self.assertTrue("sha256" in list(_hash_artifact("foo", ["sha256"])))
 
 
 class TestLinkCmdExecTimeoutSetting(unittest.TestCase):
