@@ -11,3 +11,6 @@ attrs
 python-dateutil
 iso8601
 pathspec
+urllib3
+docker
+podman

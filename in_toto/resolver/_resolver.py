@@ -2,8 +2,20 @@
 
 from abc import ABCMeta, abstractmethod
 from pathspec import PathSpec
+import re
 
+DEFAULT_SCHEME = "default"
 RESOLVER_FOR_URI_SCHEME = {}
+
+
+def _get_scheme(uri):
+  match = re.fullmatch(r"(\w+\:)?(.*)", uri)
+  if not match:
+    raise ValueError(f"Artifact URI '{uri}' could not be parsed")
+  groups = match.groups()
+  if not groups[0]:
+    return DEFAULT_SCHEME
+  return groups[0]
 
 
 class Resolver(metaclass=ABCMeta):
@@ -27,21 +39,23 @@ class Resolver(metaclass=ABCMeta):
   @abstractmethod
   def resolve_uri(cls, generic_uri, **kwargs):
     """Normalize and resolve artifact URIs"""
-    scheme = generic_uri.split(":")[0]
+    scheme = _get_scheme(generic_uri)
+
     if scheme not in RESOLVER_FOR_URI_SCHEME:
       raise ValueError(f"Unsupported in-toto resolver scheme '{scheme}'")
-
     resolver = RESOLVER_FOR_URI_SCHEME[scheme]
+
     return resolver.resolve_uri(generic_uri, **kwargs)
 
   @classmethod
   @abstractmethod
   def hash_artifacts(cls, resolved_uri, hash_algorithms=None, **kwargs):
     """Return dictionary of hash digests"""
-    scheme = resolved_uri.split(":")[0]
+    scheme = _get_scheme(resolved_uri)
+
     if scheme not in RESOLVER_FOR_URI_SCHEME:
       raise ValueError(f"Unsupported in-toto resolver scheme '{scheme}'")
-
     resolver = RESOLVER_FOR_URI_SCHEME[scheme]
+
     return resolver.hash_artifacts(
         resolved_uri, hash_algorithms=hash_algorithms, **kwargs)

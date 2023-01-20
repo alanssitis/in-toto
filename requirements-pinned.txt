@@ -6,15 +6,27 @@
 #
 attrs==22.2.0
     # via -r requirements.txt
+certifi==2022.12.7
+    # via requests
 cffi==1.15.1
     # via
     #   cryptography
     #   pynacl
+charset-normalizer==3.0.1
+    # via requests
 cryptography==39.0.0
     # via securesystemslib
+docker==6.0.1
+    # via -r requirements.txt
+idna==3.4
+    # via requests
 iso8601==1.1.0
     # via -r requirements.txt
+packaging==23.0
+    # via docker
 pathspec==0.10.3
+    # via -r requirements.txt
+podman==4.3.0
     # via -r requirements.txt
 pycparser==2.21
     # via cffi
@@ -22,7 +34,23 @@ pynacl==1.5.0
     # via securesystemslib
 python-dateutil==2.8.2
     # via -r requirements.txt
+pyxdg==0.28
+    # via podman
+requests==2.28.2
+    # via
+    #   docker
+    #   podman
 securesystemslib[crypto,pynacl]==0.26.0
     # via -r requirements.txt
 six==1.16.0
     # via python-dateutil
+toml==0.10.2
+    # via podman
+urllib3==1.26.14
+    # via
+    #   -r requirements.txt
+    #   docker
+    #   podman
+    #   requests
+websocket-client==1.4.2
+    # via docker

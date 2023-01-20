@@ -19,7 +19,8 @@ class FileResolver(Resolver):
   @classmethod
   def resolve_uri(cls, generic_uri, **kwargs):
     exclude_patterns = kwargs.get('exclude_patterns', None)
-    followlinks = kwargs.get('follow_symlink_dirs', False)
+    follow_symlink_dirs = kwargs.get('follow_symlink_dirs', False)
+    print(exclude_patterns, follow_symlink_dirs)
     norm_paths = []
 
     for norm_path in super().apply_exclude_patterns(
@@ -31,7 +32,7 @@ class FileResolver(Resolver):
 
       elif os.path.isdir(norm_path):
         for root, dirs, files in os.walk(norm_path,
-                                         followlinks=followlinks):
+                                         followlinks=follow_symlink_dirs):
           dirpaths = []
           for dirname in dirs:
             npath = os.path.normpath(os.path.join(root, dirname))
