@@ -15,7 +15,7 @@ def _get_scheme(uri):
   groups = match.groups()
   if not groups[0]:
     return DEFAULT_SCHEME
-  return groups[0]
+  return groups[0][:-1]
 
 
 class Resolver(metaclass=ABCMeta):
