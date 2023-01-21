@@ -5,6 +5,7 @@ resolver contains all default artifact resolvers
 from in_toto.resolver._docker_resolver import DockerResolver
 from in_toto.resolver._file_resolver import FileResolver
 from in_toto.resolver._git_resolver import GitResolver
+from in_toto.resolver._github_resolver import GitHubResolver
 from in_toto.resolver._podman_resolver import PodmanResolver
 from in_toto.resolver._resolver import (
   DEFAULT_SCHEME,
@@ -18,6 +19,7 @@ RESOLVER_FOR_URI_SCHEME.update(
       DockerResolver.SCHEME: DockerResolver,
       FileResolver.SCHEME: FileResolver,
       GitResolver.SCHEME: GitResolver,
+      GitHubResolver.SCHEME: GitHubResolver,
       PodmanResolver.SCHEME: PodmanResolver,
     }
 )

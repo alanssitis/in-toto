@@ -8,7 +8,7 @@ import hashlib
 import securesystemslib.formats
 import securesystemslib.hash
 
-from in_toto.resolver import Resolver
+from in_toto.resolver._resolver import Resolver
 
 
 def _get_resolvable_url(generic_uri):
