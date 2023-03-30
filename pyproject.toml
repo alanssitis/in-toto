@@ -38,8 +38,11 @@ dependencies = [
     "attrs",
     "iso8601",
     "pathspec",
+    "pydantic",
     "python-dateutil",
+    "pyyaml",
     "securesystemslib[crypto]>=0.27.0",
+    "tomlkit",
 ]
 dynamic = ["version"]
 
@@ -61,6 +64,7 @@ in-toto-record = "in_toto.in_toto_record:main"
 in-toto-run = "in_toto.in_toto_run:main"
 in-toto-sign = "in_toto.in_toto_sign:main"
 in-toto-verify = "in_toto.in_toto_verify:main"
+in-toto-layout-generator = "in_toto.in_toto_layout_generator:main"
 
 [project.urls]
 "Bug Reports" = "https://github.com/in-toto/in-toto/issues"

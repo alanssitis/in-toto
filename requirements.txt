@@ -8,6 +8,9 @@
 # triggers CI/CD builds to automatically test against updated dependencies.
 securesystemslib[crypto,pynacl]>=0.27.0
 attrs
+pydantic
 python-dateutil
+pyyaml
 iso8601
 pathspec
+tomlkit
